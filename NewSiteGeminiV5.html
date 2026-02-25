@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RealTheory | The Kubernetes Intelligence Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-blue: #0062FF;
+            --brand-gradient: linear-gradient(135deg, #0062FF 0%, #7000FF 100%);
+            --bg-deep: #050608;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --border-subtle: rgba(255, 255, 255, 0.1);
+            --text-main: #FFFFFF;
+            --text-dim: #94A3B8;
+        }
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-deep); 
+            color: var(--text-main); 
+            margin: 0; 
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Nav matches current site transparency */
+        header { 
+            padding: 24px 8%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .hero { 
+            padding: 120px 8% 80px; 
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(0, 98, 255, 0.15) 0%, transparent 70%);
+        }
+
+        .hero h1 { 
+            font-size: 4rem; 
+            font-weight: 800; 
+            letter-spacing: -0.04em;
+            background: linear-gradient(to bottom, #FFF 30%, #94A3B8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 24px;
+        }
+
+        .hero p { 
+            font-size: 1.25rem; 
+            color: var(--text-dim); 
+            max-width: 720px; 
+            margin: 0 auto 40px; 
+        }
+
+        .btn-primary { 
+            background: var(--brand-blue); 
+            color: white; 
+            padding: 14px 32px; 
+            border-radius: 8px; 
+            font-weight: 600; 
+            text-decoration: none;
+            transition: transform 0.2s ease;
+            display: inline-block;
+        }
+
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0, 98, 255, 0.3); }
+
+        /* The 3-Layer Visual Model Section */
+        .visual-model { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 24px; 
+            padding: 60px 8%; 
+        }
+
+        .card { 
+            background: var(--bg-card); 
+            border: 1px solid var(--border-subtle);
+            padding: 40px; 
+            border-radius: 16px; 
+            backdrop-filter: blur(10px);
+        }
+
+        .card h3 { 
+            font-size: 0.8rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.1em; 
+            color: var(--brand-blue); 
+            margin-bottom: 16px;
+        }
+
+        .card .title { font-size: 1.5rem; font-weight: 600; margin-bottom: 12px; }
+        .card .desc { color: var(--text-dim); font-size: 0.95rem; }
+
+        /* Pillar Grid */
+        .pillars { padding: 100px 8%; }
+        .pillar-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+        .pillar-item h4 { font-size: 1.25rem; color: #FFF; margin-bottom: 12px; }
+        .pillar-item p { color: var(--text-dim); font-size: 1rem; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div style="font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em;">REALTHEORY</div>
+        <nav>
+            <a href="#" style="color: var(--text-dim); text-decoration: none; font-size: 0.9rem; margin-left: 30px;">Platform</a>
+            <a href="#" style="color: var(--text-dim); text-decoration: none; font-size: 0.9rem; margin-left: 30px;">KIP</a>
+            <a href="#" style="color: var(--text-dim); text-decoration: none; font-size: 0.9rem; margin-left: 30px;">Enterprise</a>
+            <a href="#" class="btn-primary" style="margin-left: 40px;">Request Access</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Optimize with Confidence.™</h1>
+        <p>The Kubernetes Intelligence Platform that provides the SKU-level truth, operational context, and governed action needed to scale with safety.</p>
+        <a href="#" class="btn-primary">Get a Personalized Demo</a>
+    </section>
+
+    <section class="visual-model">
+        <div class="card">
+            <h3>Layer 1</h3>
+            <div class="title">Truth</div>
+            <div class="desc">Contract-accurate, SKU-level data. The financial source of truth engineers finally trust.</div>
+        </div>
+        <div class="card">
+            <h3>Layer 2</h3>
+            <div class="title">Context</div>
+            <div class="desc">Performance and reliability signals that turn raw cost data into actionable intelligence.</div>
+        </div>
+        <div class="card">
+            <h3>Layer 3</h3>
+            <div class="title">Action</div>
+            <div class="desc">KIP-generated artifacts and policy-governed workflows that close the gap from insight to production.</div>
+        </div>
+    </section>
+
+    <section class="pillars">
+        <div class="pillar-grid">
+            <div class="pillar-item">
+                <h4>Beyond the Visibility Gap</h4>
+                <p>BI tools stop at the namespace. RealTheory calculates the actual cost of every workload, across every cluster, in real-time.</p>
+            </div>
+            <div class="pillar-item">
+                <h4>Closing the Trust Gap</h4>
+                <p>Eliminate engineering friction by providing optimization artifacts backed by deep operational evidence.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer style="padding: 60px 8%; border-top: 1px solid var(--border-subtle); text-align: center; color: var(--text-dim); font-size: 0.8rem;">
+        &copy; 2026 REALTHEORY | Kubernetes Intelligence for the Global 2,000.
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RealTheory — Kubernetes Intelligence Platform | Enterprise Kubernetes Cost Optimization</title>
+<meta name="description" content="The Kubernetes Intelligence Platform for enterprise Kubernetes cost optimization, multi-cloud governance, and fleet-wide reliability intelligence. Policy-governed. Human-directed. Optimize with Confidence.™">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ── RESET ──────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+/* ── DESIGN TOKENS — matched to realtheory.ai ───────── */
+/* Current site: pure black BG, white large type,       */
+/* teal accent, cinematic video hero, minimal nav       */
+:root{
+  --black:    #000000;
+  --bg:       #050709;    /* just off-black, matches Framer dark */
+  --bg-lift:  #0A0D12;
+  --bg-card:  #0D1117;
+  --border:   rgba(255,255,255,0.07);
+  --border-hi:rgba(255,255,255,0.13);
+  --white:    #FFFFFF;
+  --off-white:#E8EFF7;
+  --muted:    #6B7F96;
+  --muted-hi: #A0B3C8;
+  --teal:     #00C9A7;    /* brand primary — matches KIP imagery tone */
+  --teal-lo:  rgba(0,201,167,0.10);
+  --teal-glow:rgba(0,201,167,0.06);
+  --gold:     #F2A93B;    /* trademark accent */
+  --gold-lo:  rgba(242,169,59,0.08);
+  --blue:     #4A9EFF;
+  --blue-lo:  rgba(74,158,255,0.08);
+  --display:  'Bricolage Grotesque',sans-serif;
+  --body:     'Plus Jakarta Sans',sans-serif;
+  --mono:     'JetBrains Mono',monospace;
+}
+
+body{
+  background:var(--bg);
+  color:var(--off-white);
+  font-family:var(--body);
+  font-size:16px;
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ── NAV ───────────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:62px;
+  background:rgba(5,7,9,0.7);
+  backdrop-filter:blur(20px) saturate(160%);
+  border-bottom:1px solid var(--border);
+  transition:background .3s;
+}
+.nav-logo{
+  display:flex;align-items:center;gap:10px;
+  text-decoration:none;
+  font-family:var(--display);font-weight:700;font-size:17px;
+  color:var(--white);letter-spacing:-0.01em;
+}
+.logo-gem{
+  width:30px;height:30px;
+  background:linear-gradient(135deg,var(--teal) 0%,#007A68 100%);
+  border-radius:7px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:800;
+  color:var(--black);font-family:var(--display);
+  flex-shrink:0;
+}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-links a{
+  font-size:13.5px;color:var(--muted);
+  text-decoration:none;font-weight:400;
+  transition:color .2s;
+}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{
+  background:var(--teal) !important;
+  color:var(--black) !important;
+  font-weight:600 !important;
+  padding:8px 20px;border-radius:6px;
+  transition:opacity .2s,transform .15s !important;
+}
+.nav-cta:hover{opacity:.88;transform:translateY(-1px)}
+
+/* ── HERO ──────────────────────────────────────────── */
+.hero{
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:120px 48px 80px;
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+
+/* Radial glow — matches the atmospheric quality of current site */
+.hero::before{
+  content:'';position:absolute;
+  top:-20%;left:50%;transform:translateX(-50%);
+  width:900px;height:700px;
+  background:radial-gradient(ellipse at 50% 40%,
+    rgba(0,201,167,0.13) 0%,
+    rgba(0,201,167,0.04) 40%,
+    transparent 70%);
+  pointer-events:none;
+}
+/* Subtle grid — current site has clean geometry */
+.hero::after{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(0,201,167,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,201,167,0.03) 1px,transparent 1px);
+  background-size:80px 80px;
+  mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,black 20%,transparent 80%);
+  pointer-events:none;
+}
+
+.hero-inner{position:relative;z-index:2;max-width:920px;margin:0 auto}
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid rgba(0,201,167,0.28);
+  background:rgba(0,201,167,0.07);
+  border-radius:100px;
+  padding:5px 16px 5px 12px;
+  margin-bottom:40px;
+  font-family:var(--mono);font-size:11px;
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--teal);
+  animation:up .8s ease both;
+}
+.badge-pulse{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--teal);
+  animation:pulse 2.5s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.75)}}
+
+/* Hero headline — same scale ambition as current site's big question */
+.hero-h1{
+  font-family:var(--display);
+  font-size:clamp(54px,7.5vw,108px);
+  font-weight:800;letter-spacing:-0.04em;line-height:.97;
+  color:var(--white);
+  margin-bottom:32px;
+  animation:up .9s .07s ease both;
+}
+.hero-h1 .stroke{
+  -webkit-text-stroke:1.5px rgba(255,255,255,0.2);
+  color:transparent;display:block;
+}
+.hero-tm{
+  display:block;
+  font-size:clamp(24px,3vw,42px);
+  color:var(--gold);font-weight:800;
+  margin-top:10px;
+  -webkit-text-stroke:0;color:var(--gold);
+}
+
+.hero-sub{
+  font-size:17px;line-height:1.75;
+  color:var(--muted);
+  max-width:620px;margin:0 auto 44px;
+  animation:up .9s .15s ease both;
+}
+.hero-sub strong{color:var(--off-white);font-weight:500}
+
+.hero-actions{
+  display:flex;align-items:center;justify-content:center;gap:16px;
+  margin-bottom:72px;
+  animation:up .9s .22s ease both;
+}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--teal);color:var(--black);
+  font-weight:600;font-size:14.5px;font-family:var(--body);
+  padding:13px 30px;border-radius:7px;
+  text-decoration:none;border:none;cursor:pointer;
+  transition:opacity .2s,transform .15s,box-shadow .2s;
+}
+.btn-primary:hover{opacity:.9;transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,201,167,.28)}
+.btn-outline{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--border-hi);color:var(--muted-hi);
+  font-size:14px;font-family:var(--body);font-weight:400;
+  padding:12px 24px;border-radius:7px;
+  text-decoration:none;
+  transition:border-color .2s,color .2s;
+}
+.btn-outline:hover{border-color:rgba(255,255,255,.25);color:var(--white)}
+
+.hero-proof{
+  animation:up .9s .28s ease both;
+  border-top:1px solid var(--border);
+  padding-top:28px;
+  font-size:13px;color:var(--muted);
+  max-width:680px;margin:0 auto;
+}
+.hero-proof em{color:var(--muted-hi);font-style:normal}
+.proof-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;justify-content:center}
+.proof-tag{
+  font-family:var(--mono);font-size:10.5px;
+  color:var(--muted);border:1px solid var(--border);
+  border-radius:4px;padding:3px 10px;
+}
+
+@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── SCROLL REVEAL ─────────────────────────────────── */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.rv.on{opacity:1;transform:none}
+.rv.d1{transition-delay:.07s}.rv.d2{transition-delay:.14s}
+.rv.d3{transition-delay:.21s}.rv.d4{transition-delay:.28s}
+
+/* ── LAYOUT HELPERS ────────────────────────────────── */
+.wrap{max-width:1160px;margin:0 auto;padding:0 48px;position:relative;z-index:1}
+.sect{padding:120px 48px}
+.sect-alt{padding:120px 48px;background:var(--bg-lift)}
+.sect-dark{padding:120px 48px;background:var(--bg-card)}
+
+/* ── SECTION LABELS ────────────────────────────────── */
+.label{
+  font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--teal);display:block;margin-bottom:14px;
+}
+.label.gold{color:var(--gold)}
+.label.blue{color:var(--blue)}
+
+/* ── SECTION HEADLINES ─────────────────────────────── */
+/* Matching the current site's love of single large statements */
+.sh{
+  font-family:var(--display);
+  font-size:clamp(36px,4.5vw,58px);
+  font-weight:800;letter-spacing:-0.035em;line-height:1.07;
+  color:var(--white);margin-bottom:20px;
+}
+.sh .dim{-webkit-text-stroke:1px rgba(255,255,255,.2);color:transparent}
+.sp{font-size:16px;color:var(--muted);max-width:540px;line-height:1.75}
+.sp-c{text-align:center;max-width:680px;margin:0 auto}
+
+/* ── PROBLEM SECTION ───────────────────────────────── */
+/* Full-width dark cards with top accent lines */
+.prob-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  margin-top:52px;gap:1px;
+  border:1px solid var(--border);
+}
+.prob-card{
+  background:var(--bg-lift);padding:48px 44px;
+  position:relative;overflow:hidden;
+  transition:background .25s;
+}
+.prob-card:hover{background:rgba(255,255,255,.03)}
+.prob-card::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:1px;
+}
+.prob-card:nth-child(1)::before{background:var(--teal)}
+.prob-card:nth-child(2)::before{background:var(--blue)}
+.prob-card:nth-child(3)::before{background:var(--gold)}
+.prob-card:nth-child(4)::before{background:linear-gradient(90deg,var(--teal),var(--blue))}
+.prob-n{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.1em;margin-bottom:20px}
+.prob-card h3{
+  font-family:var(--display);font-size:20px;font-weight:700;
+  color:var(--white);margin-bottom:12px;letter-spacing:-.01em;
+}
+.prob-card p{font-size:14.5px;color:var(--muted);line-height:1.65}
+
+/* ── QUOTE BLOCK ───────────────────────────────────── */
+.qb{
+  border-left:2px solid var(--teal);
+  padding:24px 32px;
+  background:var(--teal-glow);
+  margin:40px 0;border-radius:0 6px 6px 0;
+}
+.qb p{
+  font-family:var(--display);
+  font-size:20px;font-weight:600;font-style:italic;
+  color:var(--white);line-height:1.5;
+}
+.qb.gold{border-left-color:var(--gold);background:var(--gold-lo)}
+.qb.blue{border-left-color:var(--blue);background:var(--blue-lo)}
+
+/* ── 3-LAYER MODEL ─────────────────────────────────── */
+.layers{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;margin:52px 0 24px}
+.layer{
+  padding:44px 36px;text-align:center;
+  border:1px solid var(--border);
+}
+.layer:nth-child(1){background:rgba(0,201,167,.07);border-color:rgba(0,201,167,.2)}
+.layer:nth-child(2){background:rgba(74,158,255,.07);border-color:rgba(74,158,255,.2)}
+.layer:nth-child(3){background:rgba(242,169,59,.06);border-color:rgba(242,169,59,.18)}
+.layer-tag{
+  font-family:var(--mono);font-size:9.5px;
+  letter-spacing:.2em;text-transform:uppercase;
+  margin-bottom:14px;display:block;
+}
+.layer:nth-child(1) .layer-tag{color:var(--teal)}
+.layer:nth-child(2) .layer-tag{color:var(--blue)}
+.layer:nth-child(3) .layer-tag{color:var(--gold)}
+.layer-name{
+  font-family:var(--display);font-size:32px;font-weight:800;
+  color:var(--white);margin-bottom:10px;letter-spacing:-.02em;
+}
+.layer-desc{font-size:13.5px;color:var(--muted);line-height:1.6}
+.layer-axiom{
+  text-align:center;font-family:var(--mono);
+  font-size:12px;color:var(--muted);letter-spacing:.05em;
+  margin-bottom:40px;
+}
+
+/* ── TWO-COL DIMENSION BLOCKS ──────────────────────── */
+.dim{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-bottom:1px}
+.dim-l,.dim-r{padding:60px 56px}
+.dim-l{background:var(--bg-lift);border:1px solid var(--border)}
+.dim-r{background:var(--bg-card);border:1px solid var(--border)}
+.dim-tag{
+  font-family:var(--mono);font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;margin-bottom:14px;display:block;color:var(--teal);
+}
+.dim-tag.b{color:var(--blue)}.dim-tag.g{color:var(--gold)}
+.dim-l h3{
+  font-family:var(--display);font-size:24px;font-weight:700;
+  color:var(--white);margin-bottom:6px;letter-spacing:-.01em;
+}
+.dim-punch{font-size:14px;color:var(--teal);font-weight:500;margin-bottom:20px}
+.dim-punch.b{color:var(--blue)}.dim-punch.g{color:var(--gold)}
+.dim-body{font-size:14.5px;color:var(--muted);line-height:1.72;margin-bottom:24px}
+.flist{list-style:none;display:flex;flex-direction:column;gap:10px}
+.flist li{display:flex;gap:10px;font-size:13.5px;color:var(--muted);line-height:1.5}
+.flist li::before{content:'→';flex-shrink:0;font-family:var(--mono)}
+.flist.t li::before{color:var(--teal)}
+.flist.b li::before{color:var(--blue)}
+.flist.g li::before{color:var(--gold)}
+.dim-callout{margin-top:24px;font-size:14.5px;font-weight:600;color:var(--teal)}
+
+.stats3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;margin-top:24px}
+.s3{background:var(--bg);padding:28px 20px;text-align:center;border:1px solid var(--border)}
+.s3-n{
+  font-family:var(--display);font-size:28px;font-weight:800;
+  color:var(--white);display:block;line-height:1;margin-bottom:6px;
+}
+.s3-l{font-size:11px;color:var(--muted);font-family:var(--mono)}
+
+/* ── ACCURACY SECTION ──────────────────────────────── */
+/* Current site has big centered statements — match that energy */
+.accuracy-hl{
+  font-family:var(--display);
+  font-size:clamp(40px,5.5vw,72px);
+  font-weight:800;letter-spacing:-.04em;line-height:1.02;
+  color:var(--white);margin-bottom:16px;text-align:center;
+}
+.accuracy-hl .teal{color:var(--teal)}
+.acc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:60px}
+.acc-c{padding:48px;border:1px solid var(--border)}
+.acc-c.l{background:var(--bg-lift)}
+.acc-c.r{background:rgba(0,201,167,.05);border-color:rgba(0,201,167,.18)}
+.acc-c h4{
+  font-family:var(--mono);font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;margin-bottom:16px;color:var(--muted);
+}
+.acc-c.r h4{color:var(--teal)}
+.acc-c p{font-size:14.5px;color:var(--muted);line-height:1.7;margin-bottom:22px}
+
+/* ── POLICY GOVERNANCE SECTION ─────────────────────── */
+/* This is the new story — needs visual weight */
+.policy-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:52px}
+.p-tier{padding:52px;border:1px solid var(--border)}
+.p-tier.t1{background:rgba(74,158,255,.05);border-color:rgba(74,158,255,.15)}
+.p-tier.t2{background:rgba(0,201,167,.05);border-color:rgba(0,201,167,.13)}
+.tier-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;margin-bottom:12px;display:block;
+}
+.t1 .tier-label{color:var(--blue)}.t2 .tier-label{color:var(--teal)}
+.p-tier h3{
+  font-family:var(--display);font-size:22px;font-weight:700;
+  color:var(--white);margin-bottom:12px;
+}
+.p-tier p{font-size:14.5px;color:var(--muted);line-height:1.7;margin-bottom:20px}
+
+/* ── KIP SECTION ───────────────────────────────────── */
+.kip-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin:48px 0 1px}
+.kip-p{padding:48px;border:1px solid var(--border)}
+.kip-p.a{background:var(--bg-card)}
+.kip-p.b{background:rgba(0,201,167,.05);border-color:rgba(0,201,167,.14)}
+.kip-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;margin-bottom:12px;display:block;color:var(--blue);
+}
+.kip-p.b .kip-label{color:var(--teal)}
+.kip-p h3{
+  font-family:var(--display);font-size:21px;font-weight:700;
+  color:var(--white);margin-bottom:8px;
+}
+.kip-p>p{font-size:13.5px;color:var(--muted);margin-bottom:24px;line-height:1.6}
+.prompts{display:flex;flex-direction:column;gap:8px}
+.prompt{
+  display:flex;gap:10px;align-items:flex-start;
+  padding:12px 16px;
+  background:rgba(255,255,255,.03);
+  border:1px solid var(--border);border-radius:5px;
+  transition:background .2s,border-color .2s;cursor:default;
+}
+.prompt:hover{background:rgba(255,255,255,.06);border-color:var(--border-hi)}
+.pa{color:var(--gold);font-family:var(--mono);font-size:11px;flex-shrink:0;margin-top:2px}
+.pt{font-size:13px;color:var(--muted);font-style:italic;font-family:var(--mono);line-height:1.5}
+
+.rbac-bar{
+  background:rgba(74,158,255,.05);
+  border:1px solid rgba(74,158,255,.15);
+  padding:20px 48px;
+  display:flex;align-items:center;gap:14px;
+}
+.rbac-chip{
+  background:rgba(74,158,255,.15);border:1px solid rgba(74,158,255,.28);
+  border-radius:4px;padding:3px 10px;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:#71B4FF;white-space:nowrap;
+}
+.rbac-text{font-size:13.5px;color:var(--muted);line-height:1.5}
+.rbac-text strong{color:var(--off-white);font-weight:500}
+
+/* ── WORKFLOW CHAIN ────────────────────────────────── */
+.chain{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;margin-top:1px}
+.step{padding:24px 16px;text-align:center;border:1px solid var(--border)}
+.step:nth-child(1){background:rgba(0,201,167,.12);border-color:rgba(0,201,167,.22)}
+.step:nth-child(2){background:rgba(0,201,167,.08);border-color:rgba(0,201,167,.14)}
+.step:nth-child(3){background:rgba(74,158,255,.08);border-color:rgba(74,158,255,.14)}
+.step:nth-child(4){background:rgba(74,158,255,.05);border-color:rgba(74,158,255,.1)}
+.step:nth-child(5){background:rgba(242,169,59,.07);border-color:rgba(242,169,59,.18)}
+.step-n{
+  font-family:var(--display);font-size:28px;font-weight:800;
+  color:rgba(255,255,255,.15);display:block;
+}
+.step-l{font-size:12.5px;font-weight:600;color:var(--off-white);margin-top:4px;display:block}
+.chain-cap{text-align:center;margin-top:18px;font-size:12px;color:var(--muted);font-family:var(--mono)}
+
+/* ── ENTERPRISE STATS ──────────────────────────────── */
+/* Big numbers — current site loves big type */
+.ent-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;margin:52px 0}
+.ent-s{
+  background:rgba(255,255,255,.025);
+  border:1px solid var(--border);
+  padding:52px 40px;text-align:center;
+}
+.ent-n{
+  font-family:var(--display);font-size:54px;font-weight:800;
+  letter-spacing:-.04em;line-height:1;
+  background:linear-gradient(135deg,var(--white) 0%,var(--muted-hi) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  display:block;margin-bottom:10px;
+}
+.ent-l{font-size:12.5px;color:var(--muted);font-family:var(--mono)}
+
+.api-callout{
+  border-left:2px solid var(--gold);
+  background:var(--gold-lo);
+  padding:32px 40px;margin-top:44px;
+  border-radius:0 6px 6px 0;
+}
+.api-callout h4{
+  font-family:var(--display);font-size:18px;font-weight:700;
+  color:var(--white);margin-bottom:10px;
+}
+.api-callout p{font-size:14.5px;color:var(--muted);line-height:1.7;margin-bottom:14px}
+.api-chips{display:flex;flex-wrap:wrap;gap:8px}
+.api-chip{
+  background:rgba(242,169,59,.1);border:1px solid rgba(242,169,59,.22);
+  border-radius:4px;padding:3px 10px;
+  font-size:11px;color:#F5C065;font-family:var(--mono);
+}
+
+/* ── VISION ────────────────────────────────────────── */
+/* Pure cinematic — like the current site's hero energy */
+.vision{
+  padding:140px 48px;
+  text-align:center;
+  background:radial-gradient(ellipse 80% 60% at 50% 50%,
+    rgba(0,201,167,.08) 0%,transparent 65%);
+  position:relative;overflow:hidden;
+}
+.vision::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(0,201,167,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,201,167,.025) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse 80% 70% at 50% 50%,black 10%,transparent 80%);
+}
+.vision-inner{position:relative;z-index:1}
+.vision-h{
+  font-family:var(--display);
+  font-size:clamp(42px,5.5vw,72px);
+  font-weight:800;letter-spacing:-.04em;line-height:1.05;
+  color:var(--white);margin-bottom:32px;
+}
+.vision-h .stroke{
+  -webkit-text-stroke:1px rgba(255,255,255,.22);color:transparent;display:block;
+}
+.vision-p{
+  max-width:600px;margin:0 auto 28px;
+  font-size:16px;color:var(--muted);line-height:1.78;
+}
+.vision-sub{
+  font-family:var(--display);font-size:18px;font-weight:600;
+  font-style:italic;color:var(--blue);
+}
+
+/* ── CTA CLOSE ─────────────────────────────────────── */
+.cta-close{
+  padding:130px 48px;
+  text-align:center;
+  position:relative;overflow:hidden;
+  background:var(--bg-lift);
+}
+.cta-close::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(0,201,167,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,201,167,.025) 1px,transparent 1px);
+  background-size:56px 56px;
+}
+.cta-inner{position:relative;z-index:1;max-width:700px;margin:0 auto}
+.cta-h{
+  font-family:var(--display);
+  font-size:clamp(44px,5.5vw,72px);
+  font-weight:800;letter-spacing:-.04em;
+  color:var(--white);margin-bottom:52px;line-height:1.02;
+}
+.cta-checks{
+  display:inline-flex;flex-direction:column;
+  gap:14px;text-align:left;margin-bottom:52px;
+}
+.cta-check{display:flex;align-items:center;gap:12px;font-size:15px;color:var(--muted)}
+.chk-icon{
+  width:22px;height:22px;border-radius:50%;
+  background:var(--teal-lo);border:1px solid rgba(0,201,167,.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;color:var(--teal);flex-shrink:0;
+}
+.cta-btns{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:40px}
+.cta-tm{
+  font-family:var(--display);font-size:17px;font-weight:700;
+  color:var(--gold);opacity:.7;
+}
+
+/* ── FOOTER ────────────────────────────────────────── */
+footer{
+  background:var(--black);
+  border-top:1px solid var(--border);
+  padding:64px 48px 40px;
+}
+.foot-grid{
+  max-width:1160px;margin:0 auto;
+  display:grid;grid-template-columns:2fr 1fr 1fr;
+  gap:64px;padding-bottom:48px;
+  border-bottom:1px solid var(--border);
+}
+.foot-brand p{font-size:13.5px;color:var(--muted);max-width:260px;line-height:1.65;margin-top:12px}
+.foot-tm{font-size:12.5px;color:var(--gold);opacity:.6;margin-top:14px}
+.foot-col h5{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:20px;
+}
+.foot-col ul{list-style:none}
+.foot-col ul li{margin-bottom:12px}
+.foot-col ul li a{
+  font-size:13.5px;color:var(--muted);text-decoration:none;transition:color .2s;
+}
+.foot-col ul li a:hover{color:var(--white)}
+.foot-bottom{
+  max-width:1160px;margin:28px auto 0;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.foot-bottom span{font-size:12.5px;color:var(--muted)}
+.foot-bottom .accent{font-family:var(--mono);font-size:11px;color:var(--teal);opacity:.45}
+
+/* ── SCROLLBAR ─────────────────────────────────────── */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--black)}
+::-webkit-scrollbar-thumb{background:#1A2433;border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:#243040}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ─────────────────────────────────────────── -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <span class="logo-gem">RT</span>
+    RealTheory
+  </a>
+  <ul class="nav-links">
+    <li><a href="#platform">Platform</a></li>
+    <li><a href="#kip">KIP</a></li>
+    <li><a href="#enterprise">Enterprise</a></li>
+    <li><a href="#why">Why RealTheory</a></li>
+    <li><a href="#demo" class="nav-cta">See Demo</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ────────────────────────────────────────── -->
+<!-- Current site opens with a giant question. We open with a giant statement. -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="badge-pulse"></span>
+      The Kubernetes Intelligence Platform
+    </div>
+
+    <h1 class="hero-h1">
+      Stop guessing
+      <span class="stroke">inside Kubernetes.</span>
+      <span class="hero-tm">Optimize with Confidence.™</span>
+    </h1>
+
+    <p class="hero-sub">
+      The Kubernetes Intelligence Platform for <strong>enterprise Kubernetes cost optimization</strong>,
+      multi-cloud governance, and fleet-wide reliability intelligence.
+      Policy-governed. Human-directed.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#demo" class="btn-primary">See Demo &nbsp;→</a>
+      <a href="#platform" class="btn-outline">Explore the Platform &nbsp;↓</a>
+    </div>
+
+    <div class="hero-proof">
+      <em>Trusted by enterprises managing 3,600+ developers across 220+ teams and 12+ business units</em>
+      — fleetwide, multi-cloud.
+      <div class="proof-tags">
+        <span class="proof-tag">Cost Intelligence</span>
+        <span class="proof-tag">Performance</span>
+        <span class="proof-tag">Reliability</span>
+        <span class="proof-tag">Configuration Governance</span>
+        <span class="proof-tag">Multi-Cloud</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROBLEM ──────────────────────────────────────── -->
+<section class="sect-alt">
+  <div class="wrap">
+    <div class="rv">
+      <span class="label">The Problem</span>
+      <h2 class="sh">Kubernetes is the hardest part<br>of your cloud to see, explain,<br>and control.</h2>
+      <p class="sp" style="margin-top:16px">Your cloud providers give you one line item. Your FinOps tools give you a slightly smaller black box. Neither tells you where the waste lives, why performance is degrading, or what to change.</p>
+    </div>
+    <div class="prob-grid rv">
+      <div class="prob-card">
+        <div class="prob-n">01 — VISIBILITY</div>
+        <h3>The Visibility Gap</h3>
+        <p>Your cloud bill shows one K8s line item. Your FinOps BI tool stops at the namespace. Neither tells you which workloads are wasting money — or why.</p>
+      </div>
+      <div class="prob-card">
+        <div class="prob-n">02 — TRUST</div>
+        <h3>The Engineering Trust Gap</h3>
+        <p>FinOps recommends rightsizing. Engineering pushes back — because the data lacks performance and reliability context. Nothing moves.</p>
+      </div>
+      <div class="prob-card">
+        <div class="prob-n">03 — TOOLING</div>
+        <h3>The Tool Gap</h3>
+        <p>Cost is in one tool. Performance in another. Reliability in a third. No single view. No shared truth. No action.</p>
+      </div>
+      <div class="prob-card">
+        <div class="prob-n">04 — SCALE</div>
+        <h3>The Complexity Gap</h3>
+        <p>Managing 50+ clusters across three clouds with 200+ teams isn't a tooling problem. It's an intelligence problem your current stack wasn't built to solve.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CATEGORY + 3-LAYER ───────────────────────────── -->
+<section class="sect" id="platform">
+  <div class="wrap">
+    <div class="rv" style="text-align:center;max-width:780px;margin:0 auto 0">
+      <span class="label" style="display:block;text-align:center">Introducing RealTheory</span>
+      <h2 class="sh" style="text-align:center">The Kubernetes<br>Intelligence Platform.</h2>
+      <p class="sp sp-c" style="margin-top:16px">Not another dashboard. Not automation that acts before you're ready. An intelligence layer that explains trade-offs, surfaces the full picture, and gives your teams the confidence to act.</p>
+    </div>
+
+    <div class="qb rv" style="max-width:780px;margin:44px auto">
+      <p>"For the first time, FinOps and Engineering operate from the same truth."</p>
+    </div>
+
+    <div class="layers rv">
+      <div class="layer">
+        <span class="layer-tag">Layer 1</span>
+        <div class="layer-name">Truth</div>
+        <div class="layer-desc">Real-time. SKU-level. Contract-accurate. The cost data engineers trust and FinOps can defend to any CFO.</div>
+      </div>
+      <div class="layer">
+        <span class="layer-tag">Layer 2</span>
+        <div class="layer-name">Context</div>
+        <div class="layer-desc">Performance + Reliability. Cost decisions made with the full operational picture — never cost alone.</div>
+      </div>
+      <div class="layer">
+        <span class="layer-tag">Layer 3</span>
+        <div class="layer-name">Action</div>
+        <div class="layer-desc">Artifacts + Workflow. From intelligence to IaC to Jira ticket to engineer approval to shipped.</div>
+      </div>
+    </div>
+    <div class="layer-axiom rv">Truth builds trust &nbsp;·&nbsp; Context enables decisions &nbsp;·&nbsp; Action drives results</div>
+  </div>
+</section>
+
+<!-- ── FOUR DIMENSIONS ──────────────────────────────── -->
+<section class="sect-dark">
+  <div class="wrap">
+    <div class="rv" style="margin-bottom:56px">
+      <span class="label">Platform Intelligence</span>
+      <h2 class="sh">Four dimensions.<br>One platform.<br><span class="dim">Every decision covered.</span></h2>
+      <p class="sp" style="margin-top:16px">Kubernetes cost optimization fails when it looks at only one dimension. RealTheory covers all four simultaneously, at fleet scale.</p>
+    </div>
+
+    <!-- Cost -->
+    <div class="dim rv">
+      <div class="dim-l">
+        <span class="dim-tag">Dimension 1</span>
+        <h3>Cost Intelligence</h3>
+        <p class="dim-punch">The cost truth your FinOps team has been waiting for.</p>
+        <p class="dim-body">RealTheory doesn't estimate your K8s costs from the cloud bill. It calculates them — pulling real-time usage from every Kubernetes object and matching it against your actual negotiated SKU-level pricing.</p>
+        <ul class="flist t">
+          <li>Every K8s object: cluster → namespace → workload → pod → CRD</li>
+          <li>Your contracted pricing, not generic on-demand estimates</li>
+          <li>Real-time, not delayed by billing cycles</li>
+          <li>Defensible in any CFO or board conversation</li>
+        </ul>
+        <div class="dim-callout" style="margin-top:24px">Other tools estimate. We calculate.</div>
+      </div>
+      <div class="dim-r">
+        <span class="dim-tag b">For FinOps Leaders</span>
+        <div class="qb gold" style="margin:0 0 24px">
+          <p>"Optimization becomes a governance discipline, not a negotiation."</p>
+        </div>
+        <p class="dim-body">Pull cost intelligence into your existing BI tools via API. Present contract-accurate data to your CFO and board. Drive engineering action with recommendations they can't dismiss.</p>
+        <p class="dim-body" style="margin:0;font-weight:500;color:var(--off-white)">"For the first time, your CFO and your CTO are looking at the same number."</p>
+      </div>
+    </div>
+
+    <!-- Performance -->
+    <div class="dim rv">
+      <div class="dim-l">
+        <span class="dim-tag b">Dimension 2</span>
+        <h3>Performance Intelligence</h3>
+        <p class="dim-punch b">Surface hotspots. Understand why. Act safely.</p>
+        <p class="dim-body">Performance data without cost context creates engineering tunnel vision. Cost data without performance context creates FinOps recommendations that fail. RealTheory shows both — simultaneously.</p>
+        <ul class="flist b">
+          <li>CPU, memory, and network metrics across every K8s object</li>
+          <li>Hotspot detection with correlated cost impact</li>
+          <li>Anomaly detection tied to workload behavior</li>
+          <li>Performance-informed Kubernetes cost optimization guidance</li>
+        </ul>
+      </div>
+      <div class="dim-r">
+        <span class="dim-tag">For Platform / SRE</span>
+        <p class="dim-body">Every recommendation includes the performance context that tells engineers whether the change is safe to make. No more pushing back on FinOps recommendations — because the data they're built on is the same data you trust.</p>
+        <div class="qb" style="margin:0">
+          <p>"The context that moves recommendations from rejected to shipped."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reliability -->
+    <div class="dim rv">
+      <div class="dim-l">
+        <span class="dim-tag">Dimension 3</span>
+        <h3>Reliability Intelligence</h3>
+        <p class="dim-punch">Rightsize with confidence. Not with risk.</p>
+        <p class="dim-body">Engineers overprovision because Kubernetes rightsizing feels risky. RealTheory eliminates the risk by surfacing full reliability signals alongside every recommendation — so you know what to change and that it's safe.</p>
+        <ul class="flist t">
+          <li>OOM kills, crash backoff loops, pod health signals</li>
+          <li>Cluster saturation and capacity forecasting</li>
+          <li>Reliability-informed rightsizing recommendations</li>
+          <li>Adjustable — conservative or aggressive, on your terms</li>
+        </ul>
+      </div>
+      <div class="dim-r">
+        <span class="dim-tag">The Rightsizing Difference</span>
+        <p class="dim-body">Enterprises running large Kubernetes fleets are consistently 60–70% overprovisioned. The reason isn't ignorance — it's risk aversion. RealTheory targets 40–60% Kubernetes cost reduction by making rightsizing evidence-backed and engineer-approved.</p>
+        <div class="stats3">
+          <div class="s3"><span class="s3-n">60–70%</span><span class="s3-l">typical K8s overprovision</span></div>
+          <div class="s3"><span class="s3-n">40–60%</span><span class="s3-l">cost reduction target</span></div>
+          <div class="s3"><span class="s3-n">3–5 mo</span><span class="s3-l">average full ROI</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Governance -->
+    <div class="dim rv">
+      <div class="dim-l">
+        <span class="dim-tag g">Dimension 4</span>
+        <h3>Configuration Governance</h3>
+        <p class="dim-punch g">Drift detection. Best practice enforcement. Fleet-wide Kubernetes governance.</p>
+        <p class="dim-body">Configuration drift is silent and expensive. Best practices erode across hundreds of teams — no one sees it happening until a reliability event or compliance conversation exposes it.</p>
+        <ul class="flist g">
+          <li>Configuration drift detection across your entire fleet</li>
+          <li>Best practice alerting mapped to workload context</li>
+          <li>Policy alignment visibility for compliance conversations</li>
+          <li>Governance signals woven into every recommendation</li>
+        </ul>
+      </div>
+      <div class="dim-r">
+        <span class="dim-tag g">For Enterprise Teams</span>
+        <p class="dim-body">Kubernetes governance isn't a feature you add after optimization. It's the intelligence layer that makes Kubernetes cost optimization sustainable across 200+ teams, multiple BUs, and complex multi-cloud environments.</p>
+        <div class="qb gold" style="margin:0">
+          <p>"Cloud cost becomes a controllable system, not a reporting exercise."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ACCURACY ──────────────────────────────────────── -->
+<!-- Centered big statement — matches current site's cinematic register -->
+<section class="sect-alt">
+  <div class="wrap">
+    <div class="rv" style="text-align:center">
+      <span class="label" style="display:block;text-align:center">The Accuracy Difference</span>
+      <div class="accuracy-hl">
+        Other tools estimate<br>
+        your K8s costs.<br>
+        <span class="teal">We calculate them.</span>
+      </div>
+    </div>
+    <div class="acc-grid rv">
+      <div class="acc-c l">
+        <h4>How Other Tools Work</h4>
+        <p>Most Kubernetes cost management tools work backwards from your cloud bill — aggregated, delayed, and based on generic pricing assumptions. They approximate because they don't have your actual contract.</p>
+        <ul class="flist" style="color:var(--muted)">
+          <li>Aggregated cloud bill as the starting point</li>
+          <li>Generic on-demand pricing rates — not your negotiated terms</li>
+          <li>Delayed by billing cycles</li>
+          <li>Estimated allocation, not calculated</li>
+        </ul>
+      </div>
+      <div class="acc-c r">
+        <h4>How RealTheory Works</h4>
+        <p>RealTheory pulls real-time usage data directly from Kubernetes and matches it against your actual negotiated SKU-level pricing — your specific contract with AWS, Azure, or GCP.</p>
+        <ul class="flist t">
+          <li>Real-time usage data from every K8s object</li>
+          <li>Your negotiated contract pricing — not on-demand rates</li>
+          <li>Updated continuously, not by billing cycle</li>
+          <li>Defensible to your CFO and your cloud provider</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GOVERNANCE MODEL ─────────────────────────────── -->
+<!-- New story from v1.5 — needs its own section weight -->
+<section class="sect" id="why">
+  <div class="wrap">
+    <div class="rv">
+      <span class="label">Governance Model</span>
+      <h2 class="sh">Set the strategy.<br>Let the intelligence<br>operate within it.</h2>
+      <p class="sp" style="margin-top:16px">Enterprise Kubernetes governance doesn't mean approving every individual action. It means encoding your strategic intent into Policy — then operating confidently within it at fleet scale.</p>
+    </div>
+    <div class="policy-grid rv">
+      <div class="p-tier t1">
+        <span class="tier-label">Tier 1 — Policy</span>
+        <h3>Leadership sets the rules. Once.</h3>
+        <p>FinOps leaders, Platform leads, and CTOs define enterprise-wide Policies: optimization profiles, resource standards, risk tolerances, and governance guardrails. Policies encode your strategic intent — and they travel with the platform across every team automatically.</p>
+        <ul class="flist b">
+          <li>Optimization profiles per cluster: aggressive, balanced, conservative</li>
+          <li>Resource request standards by team or namespace</li>
+          <li>Risk thresholds that govern what surfaces as a recommendation</li>
+          <li>Compliance and drift boundaries defined by your governance rules</li>
+        </ul>
+      </div>
+      <div class="p-tier t2">
+        <span class="tier-label">Tier 2 — Execution</span>
+        <h3>Engineers stay in control. Always.</h3>
+        <p>The intelligence platform operates within the Policies your leadership defined. KIP generates recommendations and artifacts that are already policy-compliant. Engineers review, approve, and ship — with confidence the guardrails are already in place.</p>
+        <ul class="flist t">
+          <li>KIP generates policy-compliant artifacts — IaC, PRs, guardrails</li>
+          <li>Engineers review every artifact before anything ships</li>
+          <li>Human-in-the-loop at the execution layer. Always.</li>
+          <li>Competitors ask you to trust their automation blindly. We let you define the rules first.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── KIP ──────────────────────────────────────────── -->
+<section class="sect-dark" id="kip">
+  <div class="wrap">
+    <div class="rv" style="text-align:center;max-width:760px;margin:0 auto 0">
+      <span class="label" style="display:block;text-align:center">Meet KIP</span>
+      <h2 class="sh" style="text-align:center">Ask your fleet anything.<br><span class="dim">Get intelligence —<br>not dashboards.</span></h2>
+      <p class="sp sp-c" style="margin-top:16px">KIP is your Kubernetes Intelligence Copilot. An AI-powered copilot that reasons across your entire fleet — cost, performance, reliability, and governance — and generates the work product to act on what it finds.</p>
+    </div>
+
+    <div class="qb rv" style="max-width:760px;margin:44px auto">
+      <p>"A recommendation without an implementation path is just more work. KIP gives you both."</p>
+    </div>
+
+    <div class="kip-grid rv">
+      <div class="kip-p a">
+        <span class="kip-label">KIP Answers</span>
+        <h3>Ask in plain language.</h3>
+        <p>Get reasoning, not results lists. KIP understands your entire fleet — workload interdependencies, cost signals, reliability patterns — and explains the why, not just the what.</p>
+        <div class="prompts">
+          <div class="prompt"><span class="pa">›</span><span class="pt">"Where am I overspending without improving performance?"</span></div>
+          <div class="prompt"><span class="pa">›</span><span class="pt">"Which workloads have the highest cost-to-value ratio?"</span></div>
+          <div class="prompt"><span class="pa">›</span><span class="pt">"What changed in the last 24 hours affecting cost?"</span></div>
+          <div class="prompt"><span class="pa">›</span><span class="pt">"Show me reliability risks correlated with cost impact."</span></div>
+        </div>
+      </div>
+      <div class="kip-p b">
+        <span class="kip-label">KIP Generates</span>
+        <h3>From insight to implementation.</h3>
+        <p>Without losing control. KIP generates the actual work product — IaC, PR-ready changes, guardrails — so recommendations don't sit in a backlog. They ship.</p>
+        <div class="prompts">
+          <div class="prompt"><span class="pa">›</span><span class="pt">"Generate the IaC for these rightsizing recommendations."</span></div>
+          <div class="prompt"><span class="pa">›</span><span class="pt">"Create a PR-ready change for my top 3 overprovisioned workloads."</span></div>
+          <div class="prompt"><span class="pa">›</span><span class="pt">"Build guardrails for resource standards across this namespace."</span></div>
+          <div class="prompt"><span class="pa">›</span><span class="pt">"Create a Jira ticket with the evidence and artifact attached."</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rbac-bar rv">
+      <span class="rbac-chip">RBAC-Aware</span>
+      <p class="rbac-text"><strong>KIP is scoped to your authorization boundary.</strong> Every answer is limited to what you're authorized to see. No cross-BU data leakage. Enterprise-safe across 200+ teams from day one.</p>
+    </div>
+
+    <div class="chain rv">
+      <div class="step"><span class="step-n">1</span><span class="step-l">Intelligence</span></div>
+      <div class="step"><span class="step-n">2</span><span class="step-l">Artifact</span></div>
+      <div class="step"><span class="step-n">3</span><span class="step-l">Jira Ticket</span></div>
+      <div class="step"><span class="step-n">4</span><span class="step-l">Engineer Review</span></div>
+      <div class="step"><span class="step-n">5</span><span class="step-l">Shipped</span></div>
+    </div>
+    <div class="chain-cap rv">The full Kubernetes cost optimization cycle — one connected workflow. Human-in-the-loop by design. Always.</div>
+  </div>
+</section>
+
+<!-- ── ENTERPRISE ───────────────────────────────────── -->
+<section class="sect-alt" id="enterprise">
+  <div class="wrap">
+    <div class="rv">
+      <span class="label">Built for Enterprise Scale</span>
+      <h2 class="sh">Not just more clusters.<br>More teams, more clouds,<br><span class="dim">more complexity.</span></h2>
+      <p class="sp" style="margin-top:16px">Multi-cloud Kubernetes cost management at the scale of hundreds of teams and multiple business units — in a single intelligence platform. Kubernetes cost becomes a controllable P&L line, not a variable that surprises you at quarter end.</p>
+    </div>
+    <div class="ent-stats">
+      <div class="ent-s rv"><span class="ent-n">3,600+</span><span class="ent-l">developers in a single deployment</span></div>
+      <div class="ent-s rv d1"><span class="ent-n">220+</span><span class="ent-l">teams managed fleet-wide</span></div>
+      <div class="ent-s rv d2"><span class="ent-n">12+</span><span class="ent-l">business units, one platform</span></div>
+    </div>
+    <div class="dim rv" style="margin-top:1px">
+      <div class="dim-l">
+        <span class="dim-tag">Multi-Cloud Fleet Intelligence</span>
+        <h3>Every cloud. Every cluster. One view.</h3>
+        <p class="dim-body">AWS EKS, Azure AKS, Google GKE — simultaneously, in a single pane of glass. Not a per-cloud tool with separate dashboards. A fleet intelligence layer that sees across your entire Kubernetes estate.</p>
+        <ul class="flist t">
+          <li>AWS, Azure, and GCP — unified fleet view</li>
+          <li>Fleet-wide Kubernetes cost management across all clouds</li>
+          <li>Cost accuracy per cloud, per contract — not averaged</li>
+        </ul>
+      </div>
+      <div class="dim-r">
+        <span class="dim-tag b">Enterprise Safety</span>
+        <h3>Least privilege RBAC. Always.</h3>
+        <p class="dim-body">Every user sees only what they're authorized to see. FinOps sees their fleet. BU leads see their BU. Engineers see their clusters. And KIP answers only within your authorization boundary.</p>
+        <ul class="flist b">
+          <li>Org-aware RBAC across every view and report</li>
+          <li>KIP scoped to the user's data boundary — no leakage</li>
+          <li>Safe to deploy across 200+ teams from day one</li>
+        </ul>
+      </div>
+    </div>
+    <div class="api-callout rv">
+      <h4>RealTheory fits where you work — not the other way around.</h4>
+      <p>API-first by design. Every capability — cost intelligence, recommendations, KIP — is accessible via API. Pull our data into Grafana, Datadog, or any internal workflow. Embed KIP in Slack or your developer portal via our Chat Completion API.</p>
+      <div class="api-chips">
+        <span class="api-chip">REST API</span>
+        <span class="api-chip">KIP Chat Completion API</span>
+        <span class="api-chip">Jira Integration</span>
+        <span class="api-chip">Grafana / Datadog</span>
+        <span class="api-chip">MCP — Coming Soon</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── VISION ────────────────────────────────────────── -->
+<!-- Match the current site's cinematic energy on its hero -->
+<section class="vision">
+  <div class="vision-inner rv">
+    <span class="label" style="display:block;text-align:center;margin-bottom:20px">Where This Goes</span>
+    <h2 class="vision-h">
+      Intelligence today.
+      <span class="stroke">Governed automation<br>tomorrow.</span>
+    </h2>
+    <p class="vision-p">RealTheory is building toward a future where Kubernetes optimization is not just intelligent — it's automated, governed, and human-approved at every step. Today we give your teams the intelligence to decide and the artifacts to act. When automation ships, it carries the same Policy-governed, human-directed model that makes our intelligence safe today.</p>
+    <p class="vision-sub">The intelligence layer that earns the right to automate.</p>
+  </div>
+</section>
+
+<!-- ── CTA CLOSE ────────────────────────────────────── -->
+<section class="cta-close" id="demo">
+  <div class="cta-inner rv">
+    <h2 class="cta-h">See it<br>for yourself.</h2>
+    <div class="cta-checks">
+      <div class="cta-check"><span class="chk-icon">✓</span>Kubernetes cost truth your FinOps team can defend</div>
+      <div class="cta-check"><span class="chk-icon">✓</span>Recommendations your engineers will act on</div>
+      <div class="cta-check"><span class="chk-icon">✓</span>Artifacts ready to review, approve, and ship</div>
+      <div class="cta-check"><span class="chk-icon">✓</span>Policy-governed intelligence at fleet scale, across every cloud</div>
+    </div>
+    <div class="cta-btns">
+      <a href="#" class="btn-primary" style="font-size:15.5px;padding:15px 38px">See Demo &nbsp;→</a>
+      <a href="#platform" class="btn-outline">Explore the Platform</a>
+    </div>
+    <div class="cta-tm">Optimize with Confidence™</div>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────── -->
+<footer>
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a href="#" class="nav-logo"><span class="logo-gem">RT</span>RealTheory</a>
+      <p>The Kubernetes Intelligence Platform for enterprise Kubernetes cost optimization, multi-cloud governance, and fleet-wide reliability intelligence.</p>
+      <div class="foot-tm">Optimize with Confidence™</div>
+    </div>
+    <div class="foot-col">
+      <h5>Platform</h5>
+      <ul>
+        <li><a href="#">Platform Overview</a></li>
+        <li><a href="#">KIP</a></li>
+        <li><a href="#">Enterprise</a></li>
+        <li><a href="#">Why RealTheory</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h5>Connect</h5>
+      <ul>
+        <li><a href="#">See Demo</a></li>
+        <li><a href="#">Documentation</a></li>
+        <li><a href="#">support@realtheory.io</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 RealTheory, Inc. All rights reserved.</span>
+    <span class="accent">realtheory.ai</span>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -28px 0px' });
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+// Nav solidifies on scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.style.background = window.scrollY > 48
+    ? 'rgba(5,7,9,0.97)'
+    : 'rgba(5,7,9,0.70)';
+}, { passive: true });
+</script>
+</body>
+</html>
