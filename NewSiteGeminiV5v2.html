@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RealTheory — Kubernetes Intelligence Platform | Kubernetes Cost Optimization</title>
+    <meta name="description" content="Enterprise Kubernetes cost optimization, governance, and multi-cloud fleet intelligence. Policy-governed. Human-directed. Optimize with Confidence.™">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #050608;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --brand-blue: #0062FF;
+            --brand-purple: #7000FF;
+            --text-primary: #FFFFFF;
+            --text-secondary: #94A3B8;
+            --border: rgba(255, 255, 255, 0.08);
+            --accent-glow: radial-gradient(circle at center, rgba(0, 98, 255, 0.12) 0%, transparent 70%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-base); 
+            color: var(--text-primary); 
+            line-height: 1.6; 
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 8%; background: rgba(5, 6, 8, 0.85);
+            backdrop-filter: blur(15px); border-bottom: 1px solid var(--border);
+        }
+        .logo { font-weight: 800; font-size: 1.4rem; letter-spacing: -0.03em; color: white; text-decoration: none; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; margin-left: 30px; transition: 0.2s; }
+        .nav-links a:hover { color: var(--brand-blue); }
+        .btn-cta { background: var(--brand-blue); color: white; padding: 10px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; margin-left: 30px; transition: 0.3s; }
+        
+        section { padding: 100px 8%; position: relative; border-bottom: 1px solid var(--border); }
+
+        /* Hero - Option 1 (Recommended v1.5) */
+        #home { text-align: center; padding-top: 180px; background: var(--accent-glow); }
+        .badge { display: inline-block; padding: 6px 16px; background: rgba(0, 98, 255, 0.1); border: 1px solid var(--brand-blue); border-radius: 100px; color: var(--brand-blue); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 24px; }
+        h1 { font-size: 3.8rem; font-weight: 800; letter-spacing: -0.04em; margin-bottom: 24px; line-height: 1.1; }
+        .hero-sub { font-size: 1.25rem; color: var(--text-secondary); max-width: 850px; margin: 0 auto 40px; }
+        
+        /* 3-Layer Visual Model (Structural v1.5) */
+        .layer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 60px; text-align: left; }
+        .layer-card { background: var(--bg-card); border: 1px solid var(--border); padding: 40px; border-radius: 16px; position: relative; overflow: hidden; }
+        .layer-card::before { content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--brand-blue); }
+        .layer-num { color: var(--brand-blue); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; }
+        .layer-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 12px; }
+
+        /* The Governance Section (The Policy Layer v1.5) */
+        .gov-box { background: #0A0C10; border: 1px solid var(--border); border-radius: 20px; padding: 60px; margin-top: 40px; }
+        .gov-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px; }
+        .tier { padding: 20px; background: rgba(255,255,255,0.02); border-radius: 12px; }
+        .tier h4 { color: var(--brand-blue); margin-bottom: 10px; text-transform: uppercase; font-size: 0.8rem; }
+
+        /* Accuracy Story (Secret Weapon v1.5) */
+        .accuracy-section { background: linear-gradient(90deg, #050608 0%, #0A1018 100%); display: flex; align-items: center; gap: 60px; }
+        .accuracy-content { flex: 1; }
+        .accuracy-visual { flex: 1; border: 1px solid var(--brand-blue); border-radius: 12px; padding: 30px; background: rgba(0,98,255,0.05); }
+
+        /* Board-Level Proof Points (CFO Added v1.5) */
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; margin-top: 40px; }
+        .stat-item { border-right: 1px solid var(--border); }
+        .stat-item:last-child { border: none; }
+        .stat-val { font-size: 2.2rem; font-weight: 800; color: var(--brand-blue); }
+        .stat-label { font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+
+        footer { padding: 60px 8%; text-align: center; border-top: 1px solid var(--border); color: var(--text-secondary); font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#home" class="logo">REALTHEORY</a>
+        <div class="nav-links">
+            <a href="#platform">Platform</a>
+            <a href="#kip">KIP Copilot</a>
+            <a href="#enterprise">Enterprise</a>
+            <a href="#why">Why RealTheory</a>
+            <a href="#" class="btn-cta">Book a Demo</a>
+        </div>
+    </nav>
+
+    <section id="home">
+        <div class="badge">Kubernetes Intelligence Platform</div>
+        <h1>Kubernetes is where your cloud bill grows fastest.</h1>
+        <h2 style="font-size: 2.2rem; font-weight: 600; color: var(--text-secondary); margin-top: -15px; margin-bottom: 25px;">It's also where your financial control breaks down.</h2>
+        <p class="hero-sub">The platform for enterprise Kubernetes cost optimization, multi-cloud governance, and fleet-wide reliability intelligence. Optimize with Confidence.™ [cite: 522]</p>
+        <a href="#" class="btn-cta" style="padding: 16px 40px; font-size: 1.1rem;">Book a Technical Demo</a>
+        
+        <div class="layer-grid">
+            <div class="layer-card">
+                <div class="layer-num">Layer 1: Truth</div>
+                <div class="layer-title">Cost Fidelity</div>
+                <p class="desc">Real-time. SKU-level. Contract-accurate. The data engineers trust and FinOps can defend[cite: 627].</p>
+            </div>
+            <div class="layer-card">
+                <div class="layer-num">Layer 2: Context</div>
+                <div class="layer-title">Multidimensional Signals</div>
+                <p class="desc">Cost decisions with the operational, performance, and reliability context that makes them credible[cite: 627].</p>
+            </div>
+            <div class="layer-card">
+                <div class="layer-num">Layer 3: Action</div>
+                <div class="layer-title">Governed Artifacts</div>
+                <p class="desc">From intelligence to implementation. KIP-generated IaC and PR-ready changes that move at engineering speed[cite: 627].</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="platform" class="accuracy-section">
+        <div class="accuracy-content">
+            <div class="badge">The Accuracy Story</div>
+            <h2>Other tools estimate K8s costs. We calculate them. </h2>
+            <p style="color: var(--text-secondary); margin-bottom: 24px;">Most tools work backwards from aggregated cloud bills. RealTheory pulls real-time usage directly from Kubernetes and matches it against your actual negotiated SKU-level contract pricing.</p>
+            <ul style="list-style: none; color: var(--text-primary); font-weight: 600;">
+                <li style="margin-bottom: 10px;">→ Contract-accurate, not estimated </li>
+                <li style="margin-bottom: 10px;">→ Real-time, not delayed </li>
+                <li>→ Workload-level, not namespace-level </li>
+            </ul>
+        </div>
+        <div class="accuracy-visual">
+            <div style="font-family: monospace; font-size: 0.85rem; color: var(--brand-blue);">
+                [Contract Data Linked]<br>
+                AWS Enterprise Discount: 18% Applied<br>
+                Compute SKU: m5.large (Spot Instance)<br>
+                Actual Rate: $0.034/hr<br>
+                Fidelity: 100% Defensible [cite: 330]
+            </div>
+        </div>
+    </section>
+
+    <section id="governance">
+        <div style="text-align: center;">
+            <div class="badge">Enterprise Governance</div>
+            <h2>Human-in-the-loop by design. Always. </h2>
+            <p class="section-intro" style="margin: 0 auto; max-width: 800px;">RealTheory’s two-tier architecture lets leadership set the strategy through policy, while engineers maintain full control over execution.</p>
+        </div>
+        <div class="gov-box">
+            <div class="gov-grid">
+                <div class="tier">
+                    <h4>Tier 1: Policy (Strategic)</h4>
+                    <p style="font-size: 0.95rem; font-weight: 700;">Leadership sets the Guardrails.</p>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Define optimization profiles per cluster, set risk thresholds, and encode compliance rules that KIP must follow.</p>
+                </div>
+                <div class="tier">
+                    <h4>Tier 2: Execution (Operational)</h4>
+                    <p style="font-size: 0.95rem; font-weight: 700;">Engineers Ship the Work.</p>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">KIP generates policy-compliant artifacts. Engineers review, approve, and ship—with confidence that the strategy is already encoded.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kip" style="background: radial-gradient(circle at bottom right, rgba(112, 0, 255, 0.05), transparent);">
+        <div style="display: flex; gap: 60px; align-items: center;">
+            <div style="flex: 1;">
+                <div class="badge">AI Copilot</div>
+                <h2>Meet KIP. Your Cloud’s Voice. [cite: 532]</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 24px;">KIP is an RBAC-aware copilot that generates work product—IaC configurations, PR-ready changes, and guardrails—so your team can act with confidence[cite: 532].</p>
+                <p style="font-style: italic; color: var(--brand-blue);">"KIP doesn't just answer questions. It closes the gap between knowing and shipping." [cite: 532]</p>
+            </div>
+            <div style="flex: 1.2; background: #000; border: 1px solid var(--border); border-radius: 12px; padding: 25px;">
+                <div style="background: var(--bg-card); padding: 12px; border-radius: 6px; margin-bottom: 10px; font-size: 0.85rem;">
+                    <strong>Prompt:</strong> Generate the IaC configuration for these rightsizing recommendations in the 'Prod-Fleet' cluster.
+                </div>
+                <div style="background: rgba(0, 98, 255, 0.1); border-left: 3px solid var(--brand-blue); padding: 12px; border-radius: 6px; font-size: 0.85rem;">
+                    <strong>KIP:</strong> Artifact generated. I've created a PR with the optimized resource requests and limits, adhering to your 'Reliability-First' policy[cite: 532].
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="enterprise">
+        <div style="text-align: center;">
+            <div class="badge">Scale & Predictability</div>
+            <h2>Turn Kubernetes into a controllable asset. [cite: 502]</h2>
+            <p class="section-intro" style="margin: 0 auto; max-width: 800px;">Built for organizations running 3,600+ developers across 220+ teams and multi-cloud environments[cite: 534]. We make Kubernetes cost a predictable P&L line, not a variable surprise[cite: 502].</p>
+            
+            <div class="stats-grid">
+                <div class="stat-item"><div class="stat-val">40–60%</div><div class="stat-label">Cost Reduction [cite: 502]</div></div>
+                <div class="stat-item"><div class="stat-val">3–5 Mo.</div><div class="stat-label">Full Tool ROI [cite: 502]</div></div>
+                <div class="stat-item"><div class="stat-val">SKU-Level</div><div class="stat-label">Contract Accuracy [cite: 502]</div></div>
+                <div class="stat-item"><div class="stat-val">100%</div><div class="stat-label">API-First Platform [cite: 424]</div></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div style="margin-bottom: 20px; font-weight: 700; color: #FFF;">Intelligence today. Governed automation tomorrow. </div>
+        <p>&copy; 2026 REALTHEORY | Optimize with Confidence™ | The Kubernetes Intelligence Platform [cite: 401]</p>
+    </footer>
+
+</body>
+</html>
